@@ -1,0 +1,78 @@
+.toastContainer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 1.5rem;
+  gap: 1rem;
+}
+
+.toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid transparent;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  min-width: 20rem;
+  max-width: 25rem;
+}
+
+.success {
+  background-color: color-mix(in oklch, #064e3b, transparent 10%);
+  border-color: color-mix(in oklch, #10b981, transparent 50%);
+  color: #ecfdf5;
+}
+
+.error {
+  background-color: color-mix(in oklch, #4c0519, transparent 10%);
+  border-color: color-mix(in oklch, #f43f5e, transparent 50%);
+  color: #fff1f2;
+}
+
+.alert {
+  background-color: color-mix(in oklch, #451a03, transparent 10%);
+  border-color: color-mix(in oklch, #f59e0b, transparent 50%);
+  color: #fffbeb;
+}
+
+.icon {
+  margin-top: 0.125rem;
+}
+
+.content {
+  flex: 1 1 0%;
+}
+
+.message {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.confirmBtn {
+  margin-top: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition-property: background-color;
+}
+
+.confirmBtn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.closeBtn {
+  color: rgba(255, 255, 255, 0.4);
+  transition-property: color;
+}
+
+.closeBtn:hover {
+  color: rgba(255, 255, 255, 0.7);
+}

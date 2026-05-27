@@ -1,0 +1,118 @@
+.heatmapCard {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+}
+
+.heatmapHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.heatmapTitle {
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.heatmapSubtitle {
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.65rem;
+  color: var(--muted-foreground);
+}
+
+.legendBox {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.legendLevel1, .legendLevel2, .legendLevel3, .legendLevel4 {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 0.125rem;
+}
+
+.legendLevel1 { background-color: color-mix(in oklch, var(--primary), transparent 90%); }
+.legendLevel2 { background-color: color-mix(in oklch, var(--primary), transparent 60%); }
+.legendLevel3 { background-color: color-mix(in oklch, var(--primary), transparent 30%); }
+.legendLevel4 { background-color: var(--primary); }
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.heatmapTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 2px;
+}
+
+.tableHeaderCell {
+  text-align: left;
+  font-size: 0.7rem;
+  color: var(--muted-foreground);
+  padding: 0.5rem;
+}
+
+.tableHeaderCellCenter {
+  text-align: center;
+  font-size: 0.7rem;
+  color: var(--muted-foreground);
+  padding: 0.5rem;
+}
+
+.bairroCell {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.5rem;
+  white-space: nowrap;
+}
+
+.densityCell {
+  padding: 1px;
+}
+
+.densityBox {
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 800;
+  border-radius: 0.25rem;
+  transition: transform 0.2s;
+}
+
+/* Contrast optimization for readability */
+.densityBox[data-level="1"] { 
+  background-color: color-mix(in oklch, var(--primary), transparent 90%); 
+}
+.densityBox[data-level="2"] { 
+  background-color: color-mix(in oklch, var(--primary), transparent 70%); 
+}
+.densityBox[data-level="3"] { 
+  background-color: color-mix(in oklch, var(--primary), transparent 40%); 
+}
+.densityBox[data-level="4"] { 
+  background-color: var(--primary); 
+}
+
+.footerInfo {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.6rem;
+  color: var(--muted-foreground);
+}

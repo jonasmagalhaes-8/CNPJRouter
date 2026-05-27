@@ -1,0 +1,103 @@
+.dashboardContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .statsGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.statCard {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  padding: 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.statIconWrapper {
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background-color: var(--secondary);
+}
+
+.statLabel {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.statValue {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.chartsGrid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .chartsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  
+  .chartsGrid > div:first-child {
+    grid-column: span 2;
+  }
+}
+
+.chartCard {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.chartHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.chartTitle {
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.chartBadge {
+  font-size: 10px;
+  background-color: var(--secondary);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-weight: 700;
+}
+
+.chartContainer {
+  height: 16rem;
+}
