@@ -1,0 +1,85 @@
+@reference "../../globals.css";
+
+.profileContainer {
+  @apply max-w-2xl mx-auto space-y-8;
+}
+
+.profileCard {
+  @apply bg-card border border-border p-8 rounded-2xl flex items-center gap-6 shadow-sm;
+}
+
+.avatar {
+  @apply w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center flex-shrink-0;
+}
+
+.avatarIcon {
+  @apply w-10 h-10 text-primary;
+}
+
+.userInfo {
+  @apply flex-1;
+}
+
+.userName {
+  @apply text-2xl font-black text-white;
+}
+
+.userEmailRow {
+  @apply flex items-center gap-2 mt-2 text-slate-400;
+}
+
+.emailIcon {
+  @apply w-4 h-4;
+}
+
+.emailText {
+  @apply font-medium;
+}
+
+.planContainer {
+  @apply text-right;
+}
+
+.planBadge {
+  @apply inline-flex items-center gap-2 bg-emerald-500/10 text-emerald-500 px-4 py-2 rounded-lg border border-emerald-500/20;
+}
+
+.planIcon {
+  @apply w-5 h-5;
+}
+
+.planText {
+  @apply font-bold uppercase tracking-widest text-xs;
+}
+
+.optionsCard {
+  @apply bg-secondary/50 border border-border p-6 rounded-2xl space-y-4;
+}
+
+.optionsTitle {
+  @apply text-lg font-bold text-white uppercase tracking-widest;
+}
+
+.optionsDesc {
+  @apply text-slate-400 text-sm;
+}
+
+.optionsBold {
+  @apply font-bold text-white;
+}
+
+.actionsContainer {
+  @apply pt-6 border-t border-border mt-6;
+}
+
+.logoutBtn {
+  @apply flex items-center gap-2 text-red-500 font-bold hover:bg-red-500/10 px-4 py-3 rounded-lg transition-colors w-full sm:w-auto;
+}
+
+.logoutIcon {
+  @apply w-5 h-5;
+}
+
+.loading {
+  @apply text-slate-400;
+}

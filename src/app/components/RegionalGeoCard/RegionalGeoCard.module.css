@@ -1,0 +1,6 @@
+.geoCard {
+  background-color: var(--secondary);
+  border: 1px solid var(--border);
+  padding: 1rem;
+  border-radius: 0.75rem;
+}

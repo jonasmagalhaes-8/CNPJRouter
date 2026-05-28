@@ -1,0 +1,43 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: oklch(0.18 0.02 260);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.iconWrapper {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  background-color: oklch(0.75 0.2 180);
+}
+
+.title {
+  font-size: 1.125rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.025em;
+  color: oklch(0.98 0.01 260);
+}
+
+.titleHighlight {
+  color: oklch(0.75 0.2 180);
+}
+
+.subtitle {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: oklch(0.65 0.02 260);
+}

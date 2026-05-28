@@ -1,0 +1,219 @@
+.nicheCard {
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.nicheHeader {
+  padding: 1.25rem 1.5rem;
+  background-color: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nicheHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.nicheIconBox {
+  padding: 0.5rem;
+  background-color: #f1f5f9;
+  border-radius: 0.375rem;
+}
+
+.nicheName {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.nicheBody {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.deleteBtn {
+  padding: 0.5rem;
+  color: #cbd5e1;
+  transition: color 0.2s;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.deleteBtn:hover {
+  color: #ef4444;
+}
+
+.scopeRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.nacionalBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ecfdf5;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #d1fae5;
+  gap: 1rem;
+}
+
+.nacionalBannerLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.expectedLabel {
+  font-size: 10px;
+  font-weight: 700;
+  color: #059669;
+  text-transform: uppercase;
+}
+
+.geoSectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 0.5rem;
+}
+
+.geoSectionLabel {
+  font-size: 10px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.geoGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.geoCard {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  position: relative;
+}
+
+.geoTopRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.geoSelectWrapper {
+  position: relative;
+  width: 12rem;
+}
+
+.geoSelect {
+  width: 100%;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #334155;
+  outline: none;
+  appearance: none;
+}
+
+.geoSelectIcon {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.625rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  color: #94a3b8;
+  pointer-events: none;
+}
+
+.removeGeoBtn {
+  color: #cbd5e1;
+  transition: color 0.2s;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.removeGeoBtn:hover {
+  color: #ef4444;
+}
+
+.citiesList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.cityBlock {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cityHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.addCityBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #059669;
+  font-weight: 700;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px dashed #d1fae5;
+  background-color: #ecfdf5;
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.addCityBtn:hover {
+  background-color: #d1fae5;
+  border-color: #10b981;
+}
+
+.removeCityBtn {
+  color: #cbd5e1;
+  transition: color 0.2s;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.removeCityBtn:hover {
+  color: #ef4444;
+}
+
+
