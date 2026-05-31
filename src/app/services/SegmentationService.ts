@@ -10,7 +10,11 @@ export async function serviceSaveSegmentation(
   return json.data;
 }
 
-export async function serviceGetSegmentation(): Promise<ResponseDTO<NicheDTO[]>> {
-  const json = await apiBackend.get<ResponseDTO<NicheDTO[]>>('/segmentation');
+export async function serviceGetSegmentation(): Promise<ResponseDTO<{ niches: NicheDTO[]; limit: number }>> {
+  const json = await apiBackend.get<ResponseDTO<{ niches: NicheDTO[]; limit: number }>>('/segmentation');
   return json.data;
 }
+// All empresa filtering is now done server-side via /api/empresas with query params.
+
+// No exports — this file is intentionally left empty.
+export {};

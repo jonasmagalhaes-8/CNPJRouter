@@ -1,19 +1,23 @@
 export interface EmpresaDTO {
   id: string;
-  nome: string;
   cnpj: string;
-  nicho: string;
-  estado: string;
-  cidade: string;
+  razaoSocial: string;
+  nomeFantasia: string;
+  cnaePrincipal: string;
+  cnaeDescricao: string;
+  situacaoCadastral: string;
+  endereco: string;
+  municipio: string;
   bairro: string;
+  estado: string;
+  cep: string;
   telefone: string;
   email: string;
-  score: number;
   socio: string;
-  receita: string;
-  funcionarios: string;
   porte: string;
+  funcionarios: string;
+  receitaAnual: string;
   dataAbertura: string;
-  isBlocked: boolean;
-  userId: string;
+  categoriaIA: string;
+  dataProcessamento: string;
 }

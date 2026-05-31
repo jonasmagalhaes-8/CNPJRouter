@@ -152,7 +152,9 @@ export default function NicheCard({ niche, niches, setNiches }: NicheCardProps) 
           <div className={nicheCardStyles.nicheIconBox}>
             <Building2 className="w-4 h-4 text-slate-600" />
           </div>
-          <span className={nicheCardStyles.nicheName}>{niche.name}</span>
+          <span className={nicheCardStyles.nicheName}>
+            {niche.type === 'LOOKALIKE' ? `Empresas similares ao CNPJ: ${niche.name}` : niche.name}
+          </span>
         </div>
         <button onClick={removeNiche} className={nicheCardStyles.deleteBtn}>
           <Trash2 className="w-5 h-5" />
@@ -254,7 +256,7 @@ export default function NicheCard({ niche, niches, setNiches }: NicheCardProps) 
               </div>
 
               <button onClick={addGeo} className={interestModalStyles.addGeoBtn}>
-                <MapPin className="w-4 h-4" /> Adicionar Nova Inteligência Geográfica
+                <MapPin className="w-4 h-4" /> Adicionar Nova Busca Geográfica
               </button>
             </>
           )}

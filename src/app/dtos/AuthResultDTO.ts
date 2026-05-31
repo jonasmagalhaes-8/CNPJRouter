@@ -4,7 +4,8 @@ export interface AuthResultDTO {
     id: string;
     nome: string;
     email: string;
-    perfil: string;
+    plano: number;
+    planInfo?: { leads: number; preco: number; nome: string };
   };
   mensagem: string;
 }

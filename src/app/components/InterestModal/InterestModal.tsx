@@ -6,7 +6,9 @@ import { Search, Plus, ChevronRight, AlertCircle, LogIn, UserPlus, Loader2 } fro
 import { clsx } from 'clsx';
 import type { NicheDTO } from '../../dtos/NicheDTO';
 import { PLANS } from '../../constants';
-import { useAppDispatch } from '../../context/AppContext';
+import { useConfigStore } from '../../stores/useConfigStore';
+import { useAuthStore } from '../../stores/useAuthStore';
+import { useFeedStore } from '../../stores/useFeedStore';
 import { useToast } from '../ToastProvider/ToastProvider';
 import { loginController, registerController } from '../../controllers/AuthController';
 import interestModalStyles from './InterestModal.module.css';
@@ -17,7 +19,9 @@ import RegisterForm from '../RegisterForm/RegisterForm';
 type AuthView = 'login' | 'register' | 'segmentation';
 
 export default function InterestModal() {
-  const { confirmConfig } = useAppDispatch();
+  const { confirmConfig } = useConfigStore();
+  const { setShowInterestModal } = useAuthStore();
+  const { setView } = useFeedStore();
   const { showToast } = useToast();
 
   const [authView, setAuthView] = useState<AuthView>('login');
@@ -30,7 +34,10 @@ export default function InterestModal() {
       setAuthView('segmentation');
       import('../../controllers/SegmentationController').then(({ getSegmentationController }) => {
         getSegmentationController().then((res) => {
-          if (res && res.length > 0) setNiches(res);
+          if (res && res.niches && res.niches.length > 0) {
+            setNiches(res.niches);
+            setSelectedPlan(res.limit ?? 50);
+          }
         });
       });
     }
@@ -49,6 +56,7 @@ export default function InterestModal() {
 
   /* Segmentation form */
   const [selectedPlan, setSelectedPlan] = useState(50);
+  const [prospectMode, setProspectMode] = useState<'NICHE' | 'LOOKALIKE'>('NICHE');
   const [nicheInput, setNicheInput] = useState('');
   const [niches, setNiches] = useState<NicheDTO[]>([]);
   const [segLoading, setSegLoading] = useState(false);
@@ -71,6 +79,7 @@ export default function InterestModal() {
       const result = await loginController(loginEmail, loginSenha);
       showToast({ type: 'success', message: `Bem-vindo, ${result.user.nome}!`, requiresConfirm: false });
       localStorage.setItem('user', JSON.stringify(result.user));
+      await useAuthStore.getState().loadUser();
       setAuthView('segmentation');
     } catch (err) {
       setAuthError(err instanceof Error ? err.message : 'Erro ao fazer login.');
@@ -86,6 +95,7 @@ export default function InterestModal() {
       const result = await registerController(regNome, regEmail, regSenha, regPerfil, regPerfilOutro);
       showToast({ type: 'success', message: 'Conta criada com sucesso!', requiresConfirm: false });
       localStorage.setItem('user', JSON.stringify(result.user));
+      await useAuthStore.getState().loadUser();
       setAuthView('segmentation');
     } catch (err) {
       setAuthError(err instanceof Error ? err.message : 'Erro ao criar conta.');
@@ -96,19 +106,70 @@ export default function InterestModal() {
 
   const addNiche = () => {
     if (!nicheInput.trim()) return;
+
+    let finalName = nicheInput.trim();
+    const isLookalike = prospectMode === 'LOOKALIKE';
+    let cnpjRaw = '';
+
+    if (isLookalike) {
+      cnpjRaw = finalName.replace(/\D/g, '');
+      if (cnpjRaw.length !== 14) {
+        showToast({ type: 'error', message: 'CNPJ inválido. Digite 14 números.' });
+        return;
+      }
+    }
+
+    const newNicheId = Math.random().toString(36).substr(2, 9);
     const newNiche: NicheDTO = {
-      id: Math.random().toString(36).substr(2, 9),
-      name: nicheInput.trim(),
+      id: newNicheId,
+      name: finalName,
       scope: 'NACIONAL',
+      type: prospectMode,
+      sourceEmbedding: undefined, // Will be filled async if Lookalike
       geographies: [{
         id: Math.random().toString(36).substr(2, 9),
-        state: 'SP',
+        state: 'BRASIL',
         cities: [],
         portes: [],
       }],
     };
-    setNiches([...niches, newNiche]);
+
+    // Add instantly to UI
+    setNiches(prev => [...prev, newNiche]);
     setNicheInput('');
+
+    // If Lookalike, resolve silently in background using Client IP
+    if (isLookalike) {
+      import('@/app/services/CnpjLookupService').then(({ CnpjLookupService }) => {
+        import('@/app/utils/SemanticEmbeddingEngine').then(({ SemanticEmbeddingEngine }) => {
+          const lookupService = new CnpjLookupService();
+          lookupService.lookupWithFallback(cnpjRaw)
+            .then(apiData => {
+              if (!apiData) throw new Error('Empresa não encontrada nas APIs externas.');
+
+              const embedding = SemanticEmbeddingEngine.calculateEmbeddingForText(apiData.cnaeDescricao);
+
+              // Update the specific niche with the math vector
+              setNiches(currentNiches =>
+                currentNiches.map(n =>
+                  n.id === newNicheId
+                    ? { ...n, name: apiData.cnpj, sourceEmbedding: embedding }
+                    : n
+                )
+              );
+            })
+            .catch(err => {
+              showToast({ type: 'error', message: err.message || 'Erro ao resolver CNPJ.' });
+              setNiches(currentNiches => currentNiches.filter(n => n.id !== newNicheId));
+            });
+        });
+      });
+    }
+
+    // Scroll to bottom so the user sees the newly added card
+    setTimeout(() => {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }, 100);
   };
 
   const handleConfirm = async () => {
@@ -119,6 +180,8 @@ export default function InterestModal() {
     setSegLoading(true);
     try {
       await confirmConfig({ niches, limit: selectedPlan });
+      setView('feed');
+      setShowInterestModal(false);
       window.scrollTo({ top: 0, behavior: 'smooth' });
       showToast({
         type: 'success',
@@ -227,13 +290,46 @@ export default function InterestModal() {
                     <label className="text-xs font-bold text-slate-500 uppercase mb-3 block tracking-widest">
                       O que você deseja prospectar?
                     </label>
+
+                    {/* Prospect Mode Toggle */}
+                    <div className="flex bg-slate-100 p-1 rounded-lg border border-slate-200 mb-4">
+                      <button
+                        onClick={() => setProspectMode('NICHE')}
+                        className={clsx(
+                          'px-4 py-1.5 rounded-md text-xs font-bold transition-all',
+                          prospectMode === 'NICHE'
+                            ? 'bg-white text-emerald-600 shadow-sm border border-slate-200'
+                            : 'text-slate-600 hover:text-slate-900',
+                        )}
+                      >
+                        Especificar áreas de atuação
+                      </button>
+                      <button
+                        onClick={() => setProspectMode('LOOKALIKE')}
+                        className={clsx(
+                          'px-4 py-1.5 rounded-md text-xs font-bold transition-all',
+                          prospectMode === 'LOOKALIKE'
+                            ? 'bg-white text-emerald-600 shadow-sm border border-slate-200'
+                            : 'text-slate-600 hover:text-slate-900',
+                        )}
+                      >
+                        Procurar empresas similares a CNPJs
+                      </button>
+                    </div>
+
                     <div className="relative">
                       <input
                         type="text"
                         value={nicheInput}
-                        onChange={(e) => setNicheInput(e.target.value)}
+                        onChange={(e) => {
+                          let val = e.target.value;
+                          if (prospectMode === 'NICHE') {
+                            val = val.replace(/[0-9]/g, '');
+                          }
+                          setNicheInput(val);
+                        }}
                         onKeyDown={(e) => e.key === 'Enter' && addNiche()}
-                        placeholder="Ex: Farmácias, Consultórios..."
+                        placeholder={prospectMode === 'NICHE' ? "Ex: Farmácias, Consultórios..." : "Ex: 12.345.678/0001-99"}
                         className={interestModalStyles.inputField}
                       />
                     </div>

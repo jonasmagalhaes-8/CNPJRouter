@@ -1,7 +1,7 @@
 @reference "../../globals.css";
 
 .profileContainer {
-  @apply max-w-2xl mx-auto space-y-8;
+  @apply max-w-3xl mx-auto space-y-6;
 }
 
 .profileCard {
@@ -41,7 +41,7 @@
 }
 
 .planBadge {
-  @apply inline-flex items-center gap-2 bg-emerald-500/10 text-emerald-500 px-4 py-2 rounded-lg border border-emerald-500/20;
+  @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg border;
 }
 
 .planIcon {
@@ -82,4 +82,155 @@
 
 .loading {
   @apply text-slate-400;
+}
+
+/* Edit inputs */
+.editInput {
+  @apply bg-slate-800 border border-slate-700 text-white px-3 py-2 rounded-lg text-sm font-semibold outline-none focus:border-primary transition-colors w-full;
+}
+
+.editBtn {
+  @apply flex items-center gap-2 bg-primary/10 text-primary font-bold px-5 py-3 rounded-lg hover:bg-primary/20 transition-colors;
+}
+
+.saveBtn {
+  @apply flex items-center gap-2 bg-primary text-primary-foreground font-bold px-5 py-3 rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50;
+}
+
+.cancelBtn {
+  @apply flex items-center gap-2 bg-secondary text-slate-400 font-bold px-5 py-3 rounded-lg hover:bg-slate-800 transition-colors;
+}
+
+.saveMsg {
+  @apply px-4 py-2 rounded-lg text-sm font-bold;
+}
+
+.saveMsgSuccess {
+  @apply bg-emerald-500/10 text-emerald-500 border border-emerald-500/20;
+}
+
+.saveMsgError {
+  @apply bg-red-500/10 text-red-500 border border-red-500/20;
+}
+
+.passwordField {
+  @apply space-y-2;
+}
+
+.fieldLabel {
+  @apply text-xs font-bold uppercase tracking-widest text-slate-500;
+}
+
+.passwordInput {
+  @apply flex items-center gap-2 bg-slate-800 border border-slate-700 rounded-lg px-3 py-2;
+}
+
+.divider {
+  @apply border-t border-border my-4;
+}
+
+/* Tabs */
+.tabs {
+  @apply flex gap-2 bg-secondary border border-border rounded-xl p-1;
+}
+
+.tab {
+  @apply flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-bold text-slate-400 uppercase tracking-wider transition-all;
+}
+
+.tabActive {
+  @apply bg-card text-primary border border-border shadow-sm;
+}
+
+/* Plan cards */
+.planGrid {
+  @apply grid grid-cols-3 gap-4 mt-4;
+}
+
+@media (max-width: 768px) {
+  .planGrid {
+    @apply grid-cols-1;
+  }
+}
+
+.planCard {
+  @apply relative bg-card border border-border rounded-xl p-6 text-center transition-all;
+}
+
+.planCardActive {
+  @apply bg-card;
+}
+
+.activeTag {
+  @apply absolute -top-3 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-primary text-primary-foreground px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest;
+}
+
+.planName {
+  @apply text-sm font-black uppercase tracking-widest mb-2;
+}
+
+.planLeads {
+  @apply text-3xl font-black text-white mb-1;
+}
+
+.planLeadsUnit {
+  @apply text-sm font-bold text-slate-500;
+}
+
+.planPrice {
+  @apply text-lg font-black text-slate-400 mb-4;
+}
+
+.planPriceCurrency {
+  @apply text-sm font-bold text-slate-500;
+}
+
+.planCheckmark {
+  @apply flex justify-center;
+}
+
+/* Usage */
+.usageSection {
+  @apply mt-6 pt-6 border-t border-border space-y-3;
+}
+
+.usageTitle {
+  @apply text-sm font-bold uppercase tracking-widest text-slate-400;
+}
+
+.usageBar {
+  @apply h-2 bg-slate-800 rounded-full overflow-hidden;
+}
+
+.usageBarFill {
+  @apply h-full rounded-full transition-all duration-500;
+}
+
+.usageStats {
+  @apply flex justify-between text-xs text-slate-500 font-bold;
+}
+
+/* History */
+.historyList {
+  @apply space-y-2 max-h-96 overflow-y-auto;
+}
+
+.historyItem {
+  @apply flex items-center justify-between bg-card border border-border rounded-lg p-3;
+}
+
+.historyCnpj {
+  @apply font-mono font-bold text-white text-sm;
+}
+
+.historyMeta {
+  @apply text-xs text-slate-500 font-medium;
+}
+
+.loadingHistory {
+  @apply text-slate-400 py-8 text-center;
+}
+
+.emptyHistory {
+  @apply text-slate-500 py-8 text-center font-medium;
 }

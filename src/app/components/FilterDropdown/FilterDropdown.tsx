@@ -13,6 +13,7 @@ interface FilterDropdownProps {
   onChange: (values: string[]) => void;
   placeholder?: string;
   single?: boolean;
+  getOptionLabel?: (option: string) => string;
 }
 
 export default function FilterDropdown({
@@ -22,6 +23,7 @@ export default function FilterDropdown({
   onChange,
   placeholder = 'Selecionar...',
   single = false,
+  getOptionLabel = (opt) => opt,
 }: FilterDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -69,11 +71,11 @@ export default function FilterDropdown({
           ) : (
             <div className={filterDropdownStyles.tagsArea}>
               {single ? (
-                <span className={filterDropdownStyles.singleValue}>{selected[0]}</span>
+                <span className={filterDropdownStyles.singleValue}>{getOptionLabel(selected[0])}</span>
               ) : (
                 selected.map((val) => (
                   <span key={val} className={filterDropdownStyles.tag}>
-                    {val}
+                    {getOptionLabel(val)}
                     <X
                       className="w-2.5 h-2.5 ml-1 hover:text-white cursor-pointer"
                       onClick={(e) => removeTag(e, val)}
@@ -117,7 +119,7 @@ export default function FilterDropdown({
                       )}
                       onClick={() => toggleOption(option)}
                     >
-                      <span className={filterDropdownStyles.optionLabel}>{option}</span>
+                      <span className={filterDropdownStyles.optionLabel}>{getOptionLabel(option)}</span>
                       {isSelected && <Check className="w-3.5 h-3.5 text-emerald-500" />}
                     </div>
                   );

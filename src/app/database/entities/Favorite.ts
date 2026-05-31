@@ -1,4 +1,12 @@
-import { Entity, PrimaryColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { EmpresaEntity } from './Empresa';
+import { UserEntity } from './User';
 
 @Entity('favorites')
 export class FavoriteEntity {
@@ -8,6 +16,14 @@ export class FavoriteEntity {
   @Column('text')
   empresaId: string;
 
+  @ManyToOne(() => EmpresaEntity, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'empresa_id' })
+  empresa: EmpresaEntity;
+
   @Column('text')
   userId: string;
+
+  @ManyToOne(() => UserEntity, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'user_id' })
+  user: UserEntity;
 }

@@ -55,6 +55,7 @@ export async function POST(request: NextRequest) {
     };
     return NextResponse.json(result);
   } catch (err: unknown) {
+    console.error('Login Error:', err);
     const message = err instanceof Error ? err.message : 'Erro interno do servidor.';
     const error: ResponseDTO<null> = { response: null, mensagem: message, sucesso: false };
     return NextResponse.json(error, { status: 500 });

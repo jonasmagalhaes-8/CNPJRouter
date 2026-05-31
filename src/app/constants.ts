@@ -13,6 +13,7 @@ export const UFS = [
   'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO',
 ];
 
+// Kept for backward compatibility with dead components (NicheCard, PorteSection, RegionalGeoCard)
 export const PORTE_EMPRESA = [
   'Microempresa (ME)',
   'Pequena Empresa',
@@ -29,4 +30,4 @@ export const PORTE_FUNCIONARIOS_MAP: Record<string, string> = {
   'Grande Empresa': '201+',
 };
 
-export const ITEMS_PER_PAGE = 8;
+export const ITEMS_PER_PAGE = 12;

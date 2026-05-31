@@ -9,7 +9,7 @@ import gridHeatmapStyles from './GridHeatmap.module.css';
 
 interface GridHeatmapProps {
   data: EmpresaDTO[];
-  type?: 'bairro' | 'cidade';
+  type?: 'bairro' | 'municipio';
 }
 
 const monthData = [
@@ -19,19 +19,19 @@ const monthData = [
 
 export default function GridHeatmap({ data, type = 'bairro' }: GridHeatmapProps) {
   const groupedData = useMemo(() => {
-    const key = type === 'bairro' ? 'bairro' : 'cidade';
+    const key = type === 'bairro' ? 'bairro' : 'municipio';
     return Array.from(new Set(data.map((d) => d[key]))).sort().slice(0, 10);
   }, [data, type]);
 
   const getDensity = (item: string, monthIndex: number) => {
     const strLen = (item + monthIndex).length;
-    const key = type === 'bairro' ? 'bairro' : 'cidade';
+    const key = type === 'bairro' ? 'bairro' : 'municipio';
     const count = data.filter((d) => d[key] === item).length;
     return Math.floor(((strLen * count * 7) % 100));
   };
 
-  const typeLabel = type === 'bairro' ? 'Bairro' : 'Cidade';
-  const typeLower = type === 'bairro' ? 'bairro' : 'cidade';
+  const typeLabel = type === 'bairro' ? 'Bairro' : 'Município';
+  const typeLower = type === 'bairro' ? 'bairro' : 'município';
 
   return (
     <div className={gridHeatmapStyles.heatmapCard}>

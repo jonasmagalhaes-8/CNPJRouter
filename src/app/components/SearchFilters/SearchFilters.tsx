@@ -1,45 +1,71 @@
 'use client';
 
-import { useAppState, useAppDispatch } from '../../context/AppContext';
+import { useEffect } from 'react';
+import { useFeedStore } from '../../stores/useFeedStore';
+import { useFavoritesStore } from '../../stores/useFavoritesStore';
+import { PERIODS } from '../../constants';
 import FilterDropdown from '../FilterDropdown/FilterDropdown';
-import searchFiltersStyles from './SearchFilters.module.css';
 
 export default function SearchFilters() {
   const {
     view,
-    filterNichos,
+    allResults,
+    filterCategorias,
     filterPeriodo,
     filterEstados,
-    filterCidades,
+    filterMunicipios,
     filterBairros,
     filterPortes,
-    availableNichos,
-    availablePeriods,
-    availableEstados,
-    availableCidades,
-    availableBairros,
-    availablePortes,
-  } = useAppState();
-
-  const {
-    setFilterNichos,
+    setFilterCategorias,
     setFilterPeriodo,
     setFilterEstados,
-    setFilterCidades,
+    setFilterMunicipios,
     setFilterBairros,
     setFilterPortes,
-  } = useAppDispatch();
+    loadFilterOptions,
+  } = useFeedStore();
 
-  const periodOptions = ['Todos', ...availablePeriods];
+  const { favoriteResults } = useFavoritesStore();
+
+  const data = view === 'favorites' ? favoriteResults : allResults;
+
+  const availableCategorias = Array.from(new Set(data.map(r => r.categoriaIA).filter(Boolean))).sort();
+  const availableEstados = Array.from(new Set(data.map(r => r.estado).filter(Boolean))).sort();
+  const availableMunicipios = Array.from(new Set(data.map(r => r.municipio).filter(Boolean))).sort();
+  const availableBairros = Array.from(new Set(data.map(r => r.bairro).filter(Boolean))).sort();
+  const availablePortes = Array.from(new Set(data.map(r => r.porte).filter(Boolean))).sort();
+
+  const periodOptions = ['Todos', ...PERIODS];
+
+  // Load filter options when the component mounts or filters change
+  useEffect(() => {
+    loadFilterOptions();
+  }, [loadFilterOptions]);
+
+  const getMunicipioLabel = (municipio: string) => {
+    const item = data.find((r) => r.municipio === municipio);
+    if (item && item.estado) {
+      return `${municipio}/${item.estado}`;
+    }
+    return municipio;
+  };
+
+  const getBairroLabel = (bairro: string) => {
+    const item = data.find((r) => r.bairro === bairro);
+    if (item && item.municipio && item.estado) {
+      return `${bairro} - ${item.municipio}/${item.estado}`;
+    }
+    return bairro;
+  };
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
       <FilterDropdown
-        label="Nichos"
-        options={availableNichos}
-        selected={filterNichos}
-        onChange={setFilterNichos}
-        placeholder="Todos"
+        label="Categorias"
+        options={availableCategorias}
+        selected={filterCategorias}
+        onChange={setFilterCategorias}
+        placeholder="Todas"
         single={view === 'dashboard'}
       />
 
@@ -61,11 +87,12 @@ export default function SearchFilters() {
       />
 
       <FilterDropdown
-        label="Cidades"
-        options={availableCidades}
-        selected={filterCidades}
-        onChange={setFilterCidades}
-        placeholder="Todas"
+        label="Municípios"
+        options={availableMunicipios}
+        selected={filterMunicipios}
+        onChange={setFilterMunicipios}
+        placeholder="Todos"
+        getOptionLabel={getMunicipioLabel}
       />
 
       <FilterDropdown
@@ -74,6 +101,7 @@ export default function SearchFilters() {
         selected={filterBairros}
         onChange={setFilterBairros}
         placeholder="Todos"
+        getOptionLabel={getBairroLabel}
       />
 
       <FilterDropdown

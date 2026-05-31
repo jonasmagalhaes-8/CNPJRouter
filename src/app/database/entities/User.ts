@@ -14,7 +14,7 @@ export class UserEntity {
   @Column('text')
   senha: string;
 
-  @Column('int', { default: 50 })
+  @Column('int', { default: 100 })
   plano: number;
 
   @CreateDateColumn({ name: 'created_at' })

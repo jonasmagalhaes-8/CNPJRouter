@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "RADAR CNPJ - Inteligência de Prospecção Empresarial",
-  description: "Plataforma de Business Intelligence para prospecção de empresas via CNPJ. Segmentação por nicho, geografia, porte e período de abertura.",
+  description: "Plataforma de Business Intelligence para prospecção de empresas via CNPJ. Busca semântica, análise por categoria, geografia, porte e período de abertura.",
   keywords: ["CNPJ", "RADAR", "prospecção", "empresas", "leads", "business intelligence", "segmentação"],
   icons: {
     icon: "/logo.svg",

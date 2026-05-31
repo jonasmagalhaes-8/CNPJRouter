@@ -18,14 +18,14 @@ export default function QuickStats({ results }: QuickStatsProps) {
       color: 'text-emerald-500',
     },
     {
-      label: 'Nichos Ativos',
-      value: new Set(results.map((r) => r.nicho)).size,
+      label: 'Categorias Ativas',
+      value: new Set(results.map((r) => r.categoriaIA)).size,
       icon: Zap,
       color: 'text-amber-500',
     },
     {
-      label: 'Cidades Mapeadas',
-      value: new Set(results.map((r) => r.cidade)).size,
+      label: 'Municípios Mapeados',
+      value: new Set(results.map((r) => r.municipio)).size,
       icon: Users,
       color: 'text-blue-500',
     },

@@ -1,28 +1,51 @@
-import { Entity, PrimaryColumn, Column, ManyToOne, JoinColumn, CreateDateColumn } from 'typeorm';
-import { UserEntity } from './User';
+import {
+  Entity,
+  PrimaryColumn,
+  Column,
+  CreateDateColumn,
+  Index,
+} from 'typeorm';
 
 @Entity('empresas')
+@Index('idx_empresas_cnpj', ['cnpj'], { unique: true })
+@Index('idx_empresas_categoriaIA', ['categoriaIA'])
+@Index('idx_empresas_municipio_estado', ['municipio', 'estado'])
 export class EmpresaEntity {
   @PrimaryColumn('text')
   id: string;
 
-  @Column('text')
-  nome: string;
-
-  @Column('text')
+  @Column('text', { unique: true })
   cnpj: string;
 
   @Column('text')
-  nicho: string;
+  razaoSocial: string;
+
+  @Column('text')
+  nomeFantasia: string;
+
+  @Column('text')
+  cnaePrincipal: string;
+
+  @Column('text')
+  cnaeDescricao: string;
+
+  @Column('text')
+  situacaoCadastral: string;
+
+  @Column('text')
+  endereco: string;
+
+  @Column('text')
+  municipio: string;
+
+  @Column('text')
+  bairro: string;
 
   @Column('text')
   estado: string;
 
   @Column('text')
-  cidade: string;
-
-  @Column('text')
-  bairro: string;
+  cep: string;
 
   @Column('text')
   telefone: string;
@@ -30,36 +53,32 @@ export class EmpresaEntity {
   @Column('text')
   email: string;
 
-  @Column('text', { default: 'Disponível' })
-  whatsapp: string;
-
-  @Column('int', { default: 0 })
-  score: number;
-
   @Column('text')
   socio: string;
-
-  @Column('text', { default: 'Sob Consulta' })
-  receita: string;
-
-  @Column('text', { default: '1-5' })
-  funcionarios: string;
 
   @Column('text')
   porte: string;
 
-  @Column('text', { default: '' })
-  dataAbertura: string;
-
-  @Column('boolean', { default: false })
-  isBlocked: boolean;
+  @Column('text')
+  funcionarios: string;
 
   @Column('text')
-  userId: string;
+  receitaAnual: string;
 
-  @ManyToOne(() => UserEntity, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'user_id' })
-  user: UserEntity;
+  @Column('text')
+  dataAbertura: string;
+
+  @Column('text')
+  categoriaIA: string;
+
+  @Column('text')
+  embedding: string;
+
+  @Column('text', { nullable: true })
+  logradouro: string | null;
+
+  @Column('text', { nullable: true })
+  dataProcessamento: string | null;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

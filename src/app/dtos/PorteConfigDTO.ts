@@ -3,4 +3,5 @@ export interface PorteConfigDTO {
   porte: string;
   period: string;
   quantity: number;
+  cnpjLike?: string;
 }

@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
     user.nome = nome;
     user.email = email;
     user.senha = hashedPassword;
-    user.plano = 50;
+    user.plano = 100;
     user.perfil = perfil || null;
     user.perfilOutro = perfilOutro || null;
     await userRepo.save(user);

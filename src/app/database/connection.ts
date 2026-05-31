@@ -1,15 +1,26 @@
 import { DataSource } from 'typeorm';
 import { UserEntity } from './entities/User';
-import { NicheEntity } from './entities/Niche';
-import { GeoIntelligenceEntity } from './entities/GeoIntelligence';
-import { CityEntity } from './entities/City';
-import { PorteConfigEntity } from './entities/PorteConfig';
 import { EmpresaEntity } from './entities/Empresa';
 import { FavoriteEntity } from './entities/Favorite';
+import { DiscoveryHistoryEntity } from './entities/DiscoveryHistory';
+import { UserBlockEntity } from './entities/UserBlock';
+import { DailyUsageEntity } from './entities/DailyUsage';
+import { UserAlertEntity } from './entities/UserAlert';
+import { GlobalCooldownEntity } from './entities/GlobalCooldown';
+import { SegmentationEntity } from './entities/Segmentation';
+import { UserContactEntity } from './entities/UserContact';
 
 const ENTITIES = [
-  UserEntity, NicheEntity, GeoIntelligenceEntity,
-  CityEntity, PorteConfigEntity, EmpresaEntity, FavoriteEntity,
+  UserEntity,
+  EmpresaEntity,
+  FavoriteEntity,
+  DiscoveryHistoryEntity,
+  UserBlockEntity,
+  DailyUsageEntity,
+  UserAlertEntity,
+  GlobalCooldownEntity,
+  SegmentationEntity,
+  UserContactEntity,
 ];
 
 let dataSource: DataSource | null = null;
